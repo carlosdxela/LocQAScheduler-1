@@ -1,0 +1,15 @@
+
+
+<div class="container">
+  <div class="row" *ngFor="let tester of testers | async">
+    <span>ID: {{tester.id}}</span>
+    <h3><small>Tester Name:</small> {{tester.firstName}} {{tester.lastName}}</h3>
+
+    Tester Languages: {{tester.languages}}
+
+  </div>
+</div>
+
+<div>
+  _____
+</div>
