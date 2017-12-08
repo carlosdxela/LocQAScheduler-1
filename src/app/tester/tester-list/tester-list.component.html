@@ -2,11 +2,11 @@
 
 <div class="container">
   <div class="row" *ngFor="let tester of testers | async">
-    <span>ID: {{tester.id}}</span>
+    ID: <b>{{tester.id}}</b>
     <h3><small>Tester Name:</small> {{tester.firstName}} {{tester.lastName}}</h3>
 
     Tester Languages: {{tester.languages}}
-
+  <hr>
   </div>
 </div>
 
