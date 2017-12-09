@@ -1,4 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import 'rxjs/add/operator/switchMap';
+
+
+import { Tester } from '../tester';
+import { TesterService } from '../tester.service';
+
 
 @Component({
   selector: 'app-tester-detail',
@@ -7,9 +15,27 @@ import { Component } from '@angular/core';
 })
 export class TesterDetailComponent {
 
-  constructor() { }
+  tester$: Observable<Tester>;
 
-  ngOnInit() {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private service: TesterService
+  ) {
+
   }
 
+  ngOnInit() {
+    this.tester$ = this.route.paramMap
+      .switchMap((params: ParamMap) =>
+        this.service.getTesterbyId(params.get('id')));
+  }
+
+  gotoTesters(){
+    this.router.navigate(['/testers']);
+  }
+
+  deleteTester(testerId){
+    this.service.deleteTester(testerId);
+  }
 }

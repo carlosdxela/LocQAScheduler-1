@@ -1,14 +1,33 @@
-
-
-<div class="container">
-  <div class="row" *ngFor="let tester of testers | async">
-    ID: <b>{{tester.id}}</b>
-    <h3><small>Tester Name:</small> {{tester.firstName}} {{tester.lastName}}</h3>
-
-    Tester Languages: {{tester.languages}}
-  <hr>
-  </div>
+<div>
+  <button (click)="addNewTester()">
+    <span class="badge"> ADD NEW TESTER </span>
+  </button>
 </div>
+
+<ul class="testers" >
+  <li *ngFor="let tester of testers | async"
+  (click)="onSelect(tester)"
+  [class.selected]="tester === selectedTester">
+
+    <div class="col-sm-4">
+      ID: <b>{{tester.id}}</b>
+    </div>
+    <div class="col-sm-4">
+      <h3><small>Tester Name:</small> {{tester.firstName}} {{tester.lastName}}</h3>
+    </div>
+    <div class="col-sm-4">
+      Tester Languages: {{tester.languages}}
+    </div>
+    <div>
+      <a [routerLink]="['/testers', tester.id]">
+        <span class="badge"> EDIT </span>
+      </a>
+      <button (click)="deleteTester(tester.id)">
+        <span class="badge"> DELETE </span>
+      </button>
+    </div>
+  </li>
+</ul>
 
 <div>
   _____
