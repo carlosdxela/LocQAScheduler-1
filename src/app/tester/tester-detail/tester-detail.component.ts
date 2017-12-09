@@ -35,7 +35,5 @@ export class TesterDetailComponent {
     this.router.navigate(['/testers']);
   }
 
-  deleteTester(testerId){
-    this.service.deleteTester(testerId);
-  }
+
 }
