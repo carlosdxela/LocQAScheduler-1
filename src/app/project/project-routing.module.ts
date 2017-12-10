@@ -3,7 +3,7 @@ import {Routes,RouterModule} from '@angular/router';
 
 import { ProjectComponent} from './project.component';
 import { ProjectListComponent} from './project-list/project-list.component';
-//import { TesterDetailComponent} from './tester-detail/tester-detail.component';
+import { ProjectDetailComponent} from './project-detail/project-detail.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 
 const routes: Routes = [
@@ -11,7 +11,7 @@ const routes: Routes = [
     component: ProjectComponent,
     children: [
       {path: '', component: ProjectListComponent},
-//      {path: ':id', component: TesterDetailComponent}
+      {path: ':id', component: ProjectDetailComponent}
     ]
   }
 ];
