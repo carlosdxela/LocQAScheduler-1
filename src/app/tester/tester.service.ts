@@ -47,8 +47,9 @@ export class TesterService {
   }
 
   deleteTester(testerId: string): Observable<Tester[]>{
+    console.log("testerService: will try to filter " + (testerId));
     this.testers = this.testers
-      .filter(tester=>String(tester.id) != testerId);
+      .filter(tester=>tester.id != +testerId);
     return of(this.testers);
   }
 }

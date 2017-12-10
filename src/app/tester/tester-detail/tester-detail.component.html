@@ -1,28 +1,28 @@
 <form #testerForm="ngForm">
-  <div *ngIf="tester$ | async as tester">
+  <div class="container" *ngIf="tester$ | async as tester">
     <h3>{{ tester.firstName }} {{tester.lastName }}</h3>
     <div class="form-group">
-      <label class="col-sm-2 control-label">ID: {{tester.id}}
+      <label class="control-label">ID: {{tester.id}}
       </label>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">First Name:</label>
-      <div class="col-sm-4">
+      <label class="control-label">First Name:</label>
+      <div >
         <input class="form-control" [(ngModel)]="tester.firstName" name="firstName"
         placeholder="first name"/>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Last Name:</label>
-      <div class="col-sm-4">
+      <label class="control-label">Last Name:</label>
+      <div >
         <input class="form-control" [(ngModel)]="tester.lastName" name="lastName" placeholder="last name"/>
       </div>
 
 
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Languages:</label>
-      <div class="col-sm-4">
+      <label class=" control-label">Languages:</label>
+      <div >
         <input class="form-control" [(ngModel)]="tester.languages" name="langauges" placeholder="language"/>
       </div>
     </div>
@@ -31,6 +31,5 @@
 </form>
 
 <div>
-  Test Detail page.
-  <button (click)="gotoTesters()">Back</button>
+  <button class="btn btn-primary" (click)="gotoTesters()">Save and Return</button>
 </div>

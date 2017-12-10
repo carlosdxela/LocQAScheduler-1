@@ -1,0 +1,26 @@
+.selected {
+  background-color: #CFD8DC !important;
+  color: white;
+}
+
+.projects{
+  margin: 2em 2em 2em 2em;
+  list-style-type: none;
+  padding: 0;
+  width: 30em;
+}
+
+.projects li.selected:hover {
+  background-color: #BBD8DC !important;
+  color: white;
+}
+.projects li:hover {
+  color: #607D8B;
+  background-color: #DDD;
+  left: .1em;
+}
+
+.projects li{
+  border-left: 1em solid teal;
+  margin-bottom: 1em;
+}

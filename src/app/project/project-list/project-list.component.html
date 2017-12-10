@@ -1,3 +1,37 @@
 <p>
   project-list works!
 </p>
+<div>
+  <button (click)="addNewProject()">
+    <span class="badge"> ADD NEW PROJECT </span>
+  </button>
+</div>
+
+<ul class="projects" >
+  <li *ngFor="let project of projects | async"
+  (click)="onSelect(project)"
+  [class.selected]="project === selectedProject">
+
+    <div >
+      ID: <b>{{project.id}}</b>
+    </div>
+    <div >
+      <h3><small>Project Name:</small> {{project.projectName}}</h3>
+    </div>
+    <div >
+      Project Languages: {{project.languages}}
+    </div>
+    <div >
+      <a >
+        <span class="badge"> EDIT </span>
+      </a>
+      <button (click)="deleteProject(project.id)">
+        <span class="badge"> DELETE </span>
+      </button>
+    </div>
+    <div>
+      Task list
+      <button> + </button>
+    </div>
+  </li>
+</ul>
