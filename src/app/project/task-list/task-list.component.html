@@ -1,3 +1,24 @@
-<p>
-  task-list works!
-</p>
+<h4>
+  ....TASK LIST...
+</h4>
+<div >
+  <table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Task Name</th>
+      <th>Start Date</th>
+      <th>Finish Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr  *ngFor="let task of tasks">
+      <td>{{task.id}}</td>
+      <td>{{task.taskName}}</td>
+      <td>{{task.startDate | date:'shortDate'}}</td>
+      <td>{{task.finishDate | date: 'shortDate'}}</td>
+    </tr>
+  </tbody>
+  </table>
+
+</div>

@@ -7,10 +7,13 @@ import { TaskListComponent } from './task-list/task-list.component';
 import { ProjectRoutingModule }   from './project-routing.module';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 
+import { AccordionModule } from 'ngx-bootstrap';
+import { TaskEditComponent } from './task-edit/task-edit.component';
+
 @NgModule({
   imports: [
-    SharedModule, CommonModule, ProjectRoutingModule
+    SharedModule, CommonModule, ProjectRoutingModule, AccordionModule.forRoot(),
   ],
-  declarations: [ProjectComponent, ProjectListComponent, TaskListComponent, ProjectDetailComponent]
+  declarations: [ProjectComponent, ProjectListComponent, TaskListComponent, ProjectDetailComponent, TaskEditComponent]
 })
 export class ProjectModule { }

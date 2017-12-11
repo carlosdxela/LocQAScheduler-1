@@ -1,0 +1,34 @@
+
+<div >
+  <table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Task Name</th>
+      <th>Start Date</th>
+      <th>Finish Date</th>
+      <th>
+        <button><span class="glyphicon glyphicon-plus"> </span> New Task</button>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr  *ngFor="let task of tasks">
+      <td>{{task.id}}</td>
+      <td><input type="text" name="taskName-{{index}}"[(ngModel)]="task.taskName" /></td>
+      <td>
+        <input type="date" name="startDate-{{index}}"
+        value="{{task.startDate}}" [(ngModel)]="task.startDate" />
+      </td>
+      <td>
+        <input type="date" name="startDate-{{index}}"
+        value="{{task.finishDate}}" [(ngModel)]="task.finishDate" />
+      </td>
+      <td>
+        <button><span class="glyphicon glyphicon-remove"></span></button>
+      </td>
+    </tr>
+  </tbody>
+  </table>
+
+</div>

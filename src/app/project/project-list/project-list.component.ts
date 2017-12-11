@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Project } from '../project';
 import { ProjectService } from '../project.service';
 
+//import { AccordionModule } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-project-list',

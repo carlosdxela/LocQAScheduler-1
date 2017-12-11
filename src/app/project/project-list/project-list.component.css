@@ -1,6 +1,6 @@
 .selected {
   background-color: #CFD8DC !important;
-  color: white;
+  color: teal;
 }
 
 .projects{
@@ -12,7 +12,7 @@
 
 .projects li.selected:hover {
   background-color: #BBD8DC !important;
-  color: white;
+  color: teal;
 }
 .projects li:hover {
   color: #607D8B;

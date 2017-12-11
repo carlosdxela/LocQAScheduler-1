@@ -1,6 +1,4 @@
-<p>
-  project-detail works!
-</p>
+
 <form #projectForm="ngForm">
   <div class="container" *ngIf="project$ | async as project">
     <h3>{{ project.projectName }}</h3>
@@ -23,9 +21,14 @@
       </div>
     </div>
 
+    <div>
+        <h4>Task List</h4>
+      <app-task-edit [tasks]="project.tasks"></app-task-edit>
+    </div>
+  </div>
+
+
+  <div>
+    <button class="btn btn-primary" (click)="gotoProjects()">Save and Return</button>
   </div>
 </form>
-
-<div>
-  <button class="btn btn-primary" (click)="gotoProjects()">Save and Return</button>
-</div>

@@ -7,31 +7,30 @@
   </button>
 </div>
 
-<ul class="projects" >
-  <li *ngFor="let project of projects | async"
-  (click)="onSelect(project)"
-  [class.selected]="project === selectedProject">
+<accordion [closeOthers]=true>
 
-    <div >
-      ID: <b>{{project.id}}</b>
+  <accordion-group #group *ngFor="let project of projects | async"
+  (click)="onSelect(project)" [class.selected]="project === selectedProject">
+    <div accordion-heading class="clearfix">
+      <div >
+        ID: <b>{{project.id}}</b>
+      </div>
+      <div >
+        <h3><small>Project Name:</small> {{project.projectName}}</h3>
+      </div>
+      <div >
+        Project Languages: {{project.languages}}
+      </div>
+      <div >
+        <a [routerLink]="['/projects', project.id]">
+          <span class="badge"> EDIT </span>
+        </a>
+        <button (click)="deleteProject(project.id)">
+          <span class="badge"> DELETE </span>
+        </button>
+      </div>
     </div>
-    <div >
-      <h3><small>Project Name:</small> {{project.projectName}}</h3>
-    </div>
-    <div >
-      Project Languages: {{project.languages}}
-    </div>
-    <div >
-      <a [routerLink]="['/projects', project.id]">
-        <span class="badge"> EDIT </span>
-      </a>
-      <button (click)="deleteProject(project.id)">
-        <span class="badge"> DELETE </span>
-      </button>
-    </div>
-    <div>
-      Task list
-      <button> + </button>
-    </div>
-  </li>
-</ul>
+    <app-task-list [tasks]="project.tasks"></app-task-list>
+  </accordion-group>
+
+</accordion>

@@ -1,12 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Task } from '../task';
-
 @Component({
-  selector: 'app-task-list',
-  templateUrl: './task-list.component.html',
-  styleUrls: ['./task-list.component.css']
+  selector: 'app-task-edit',
+  templateUrl: './task-edit.component.html',
+  styleUrls: ['./task-edit.component.css']
 })
-export class TaskListComponent implements OnInit {
+export class TaskEditComponent implements OnInit {
 
   @Input()
   tasks: Task[];
