@@ -8,7 +8,7 @@
       <th>Start Date</th>
       <th>Finish Date</th>
       <th>
-        <button><span class="glyphicon glyphicon-plus"> </span> New Task</button>
+        <button (click)="addNewTask()"><span class="glyphicon glyphicon-plus"> </span> New Task</button>
       </th>
     </tr>
   </thead>
@@ -25,7 +25,7 @@
         value="{{task.finishDate}}" [(ngModel)]="task.finishDate" />
       </td>
       <td>
-        <button><span class="glyphicon glyphicon-remove"></span></button>
+        <button (click)="deleteTask(task.id)"><span class="glyphicon glyphicon-remove"></span></button>
       </td>
     </tr>
   </tbody>

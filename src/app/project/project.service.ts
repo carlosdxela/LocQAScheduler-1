@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Project } from './project';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { delay } from 'rxjs/operators';
 import  'rxjs/add/operator/map';
 
+import { Project } from './project';
 import { Task } from './task';
 
 const PROJECTS: Project[] = [
@@ -27,6 +27,7 @@ const PROJECTS: Project[] = [
 export class ProjectService {
 
   lastId : number = 2;
+  lastTaskId : number = 4;
   //placeholder
   projects: Project[]=PROJECTS;
 
@@ -58,14 +59,18 @@ export class ProjectService {
   }
 
   addTaskToProject(projectId: string):Observable<Project[]>{
-    let project:Observable<Project>;
-    project = this.getProjectbyId(projectId);
-
+    let project:Project;
+    project = this.projects.find(project=>project.id === +projectId);
+    let myTask = new Task();
+    myTask.id = this.lastTaskId++;
+    project.tasks.push(myTask);
     return of(this.projects);
   }
 
-  deleteTaskFromProject(projectId: string, taskId: string){
-    let project:Observable<Project>;
-    project = this.getProjectbyId(projectId);
+  deleteTaskFromProject(projectId: string, taskId: string):Task[]{
+    let project:Project;
+    project = this.projects.find(project=>project.id === +projectId);
+    project.tasks.filter(task => task.id != +taskId);
+    return project.tasks;
   }
 }
