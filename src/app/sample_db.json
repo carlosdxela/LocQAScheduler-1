@@ -1,6 +1,6 @@
 {
   "testers":[
-    {"id":1, "firstName":"John", "lastName":"Doe",
+    {"id":1, "firstName":"Johnyboy", "lastName":"Doe",
     "alias":"''", "email":"''", "languages":["es-MX", "fr-FR"]},
     {"id":2, "firstName":"Tony", "lastName":"Dore",
     "alias":"''", "email":"''", "languages":["es-ES"]},
@@ -15,14 +15,14 @@
     {"id":1, "projectName":"ProjectX",
     "languages":["es-MX", "fr-FR", "it-IT"],
     "tasks": [
-      {"id":1, "taskName":"'Task1'","startDate":"01/01/2017","finishDate":"02/02/2017"},
-      {"id":2, "taskName":"'Task2'","startDate":"02/02/2017","finishDate":"03/03/2017"},
+      {"id":1, "taskName":"Task1","startDate":"01/01/2017","finishDate":"02/02/2017"},
+      {"id":2, "taskName":"Task2","startDate":"02/02/2017","finishDate":"03/03/2017"}
     ]},
     {"id":2, "projectName":"'ProjectXY'",
     "languages":["'es-ES'", "'fr-CA'", "'pt-BR'"],
     "tasks": [
-      {"id":3, "taskName":"'Task3'","startDate":"01/01/2017","finishDate":"02/02/2017"},
-      {"id":4, "taskName":"'Task4'","startDate":"02/02/2017","finishDate":"03/03/2017"},
+      {"id":3, "taskName":"Task3","startDate":"01/01/2017","finishDate":"02/02/2017"},
+      {"id":4, "taskName":"Task4","startDate":"02/02/2017","finishDate":"03/03/2017"}
     ]}
   ]
 }

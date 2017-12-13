@@ -1,10 +1,17 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { OnInit } from '@angular/core';
 import { Tester } from './tester';
-
+//import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { delay } from 'rxjs/operators';
-import  'rxjs/add/operator/map';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+import { Http } from '@angular/http';
+
+const API_URL = environment.apiUrl;
 
 const TESTERS: Tester[] = [
   {id:1, firstName:'John', lastName:'Doe',
@@ -20,18 +27,35 @@ const TESTERS: Tester[] = [
 ];
 
 @Injectable()
-export class TesterService {
+export class TesterService implements OnInit{
 
   lastId : number = 5;
   //placeholder
   testers: Tester[]=TESTERS;
 
-  constructor() { }
 
-  getTesters(): Observable<Tester[]>{
-    return of(this.testers).pipe(delay(500));
+
+  constructor(private http: Http) { }
+
+  ngOnInit():void{
+//    this.http.get(API_URL+'/testers').subscribe(data=>{
+//      this.testers = data['testers'];
+//    });
   }
-
+  getTesters(): Observable<Tester[]>{
+    return this.http
+      .get(API_URL+'/testers')
+      .map(response=>{
+        const testers = response.json();
+        return testers.map((tester)=>new Tester(tester));
+      })
+      .catch(this.handleError);
+    //return of(this.testers).pipe(delay(500));
+  }
+  private handleError (error: Response | any) {
+    console.error('ApiService::handleError', error);
+    return Observable.throw(error);
+  }
   //need to add functions for add, edit and delete
   addTester(tester: Tester): Observable<Tester[]>{
     if (!tester.id){
