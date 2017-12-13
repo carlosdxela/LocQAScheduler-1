@@ -12,14 +12,14 @@ const PROJECTS: Project[] = [
   {id:1, projectName:'ProjectX',
   languages:['es-MX', 'fr-FR', 'it-IT'],
   tasks: [
-    {id:1, taskName:'Task1',startDate:new Date('01/01/2017'),finishDate:new Date('02/02/2017')},
-    {id:2, taskName:'Task2',startDate:new Date('02/02/2017'),finishDate:new Date('03/03/2017')},
+    {id:1, taskName:'Task1',startDate:new Date('01/01/2017'),finishDate:new Date('02/02/2017'), assignments:[]},
+    {id:2, taskName:'Task2',startDate:new Date('02/02/2017'),finishDate:new Date('03/03/2017'), assignments:[]},
   ]},
   {id:2, projectName:'ProjectXY',
   languages:['es-ES', 'fr-CA', 'pt-BR'],
   tasks: [
-    {id:3, taskName:'Task3',startDate:new Date('01/01/2017'),finishDate:new Date('02/02/2017')},
-    {id:4, taskName:'Task4',startDate:new Date('02/02/2017'),finishDate:new Date('03/03/2017')},
+    {id:3, taskName:'Task3',startDate:new Date('01/01/2017'),finishDate:new Date('02/02/2017'), assignments:[]},
+    {id:4, taskName:'Task4',startDate:new Date('02/02/2017'),finishDate:new Date('03/03/2017'), assignments:[]},
   ]},
 ];
 
@@ -56,6 +56,12 @@ export class ProjectService {
     this.projects = this.projects
       .filter(project=>project.id != +projectId); //the + converts to number
     return of(this.projects);
+  }
+
+  getTaskbyPId_TaskId(projectId: string, taskId: string):Observable<Task>{
+    let pjs = this.projects.find(project=>project.id === +projectId);
+    let tasks = pjs.tasks.find(task=>task.id === +taskId);
+    return of(tasks);
   }
 
   addTaskToProject(projectId: string):Observable<Project[]>{

@@ -4,6 +4,7 @@ import {Routes,RouterModule} from '@angular/router';
 import { ProjectComponent} from './project.component';
 import { ProjectListComponent} from './project-list/project-list.component';
 import { ProjectDetailComponent} from './project-detail/project-detail.component';
+import { TaskEditComponent } from './task-edit/task-edit.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 
 const routes: Routes = [
@@ -11,7 +12,11 @@ const routes: Routes = [
     component: ProjectComponent,
     children: [
       {path: '', component: ProjectListComponent},
-      {path: ':id', component: ProjectDetailComponent}
+      {path: ':projectId', component: ProjectDetailComponent,
+       children: [
+         {path: 'tasks/:taskId', component: TaskEditComponent}
+       ]
+      }
     ]
   }
 ];

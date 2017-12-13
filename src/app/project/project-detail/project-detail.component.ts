@@ -28,7 +28,7 @@ export class ProjectDetailComponent implements OnInit {
   ngOnInit() {
     this.project$ = this.route.paramMap
       .switchMap((params: ParamMap) =>
-        this.service.getProjectbyId(params.get('id')));
+        this.service.getProjectbyId(params.get('projectId')));
   }
 
   gotoProjects(){
