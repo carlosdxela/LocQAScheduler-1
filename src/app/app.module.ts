@@ -9,12 +9,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AlertModule } from 'ngx-bootstrap';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AssignmentsComponent } from './assignments/assignments.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    AssignmentsComponent
   ],
   imports: [
     BrowserModule,

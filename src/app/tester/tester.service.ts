@@ -56,7 +56,7 @@ export class TesterService implements OnInit{
     console.log("In tester.service.getTesters.");
     this.http.get<Tester[]>(API_URL+'/testers').subscribe(data=>{
       //let testerInstance = Object.assign(new Tester(), data);
-      console.log("  " + data);
+      console.log("  - " + data);
       this.testers = of(data);
 
     },
@@ -76,7 +76,7 @@ export class TesterService implements OnInit{
   }
   //need to add functions for add, edit and delete
   addTester(tester: Tester): Observable<Tester[]>{
-    // tester.id = ++this.lastId; //take this out once proper id is managed by REST API
+    tester.id = ++this.lastId; //take this out once proper id is managed by REST API
     // console.log("Tester "+ tester.id + " - " + JSON.stringify(tester));
     // return this.http
     //   .post(API_URL+'/testers', tester)
@@ -85,6 +85,18 @@ export class TesterService implements OnInit{
     //     return new Tester(response.json());
     //   })
     //   .catch(this.handleError);
+    this.http.post(API_URL+'/testers',tester).subscribe(
+      data=>{
+        console.log(data);
+      },
+      (err: HttpErrorResponse)=>{
+        if (err.error instanceof Error){
+          console.log('An error occurred:', err.error.message);
+        } else{
+          console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
+        }
+      }
+    );
     // if (!tester.id){
     //   tester.id = ++this.lastId;
     // }
@@ -96,7 +108,7 @@ export class TesterService implements OnInit{
     let t:Tester;
     this.http.get<Tester>(API_URL+'/testers/' + testerId).subscribe(data=>{
       //let testerInstance = Object.assign(new Tester(), data);
-      console.log("  " + data);
+      console.log("GetTesteryById:  " + data);
       t = (data);
     });
     return of(t);
@@ -116,6 +128,18 @@ export class TesterService implements OnInit{
     //     return response.json();
     //   })
     //   .catch(this.handleError);
+    this.http.delete(API_URL+'/testers/'+ testerId).subscribe(
+      data=>{
+        console.log(data);
+      },
+      (err: HttpErrorResponse)=>{
+        if (err.error instanceof Error){
+          console.log('An error occurred:', err.error.message);
+        } else{
+          console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
+        }
+      }
+    );
     // this.testers = this.testers
     //   .filter(tester=>tester.id != +testerId);
     return (this.testers);

@@ -16,8 +16,8 @@ export class TesterListComponent{
   testers: Observable<Tester[]>;
   selectedTester: Tester;
   constructor(private testerService: TesterService, private router: Router) {
-
-    this.testers = this.testerService.getTesters();
+    this.testers = new Observable<Tester[]>();
+    this.refresh();
     console.log("Testers in constructor: " + (this.testers));
 
    }
@@ -35,6 +35,7 @@ export class TesterListComponent{
 
      console.log("New Tester:" + newT);
      this.testerService.addTester(newT);
+     this.testers = this.testerService.getTesters();
      //this.router.navigate(['/testers/' + newT.id]);
    }
 

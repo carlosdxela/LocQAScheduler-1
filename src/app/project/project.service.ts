@@ -12,14 +12,21 @@ const PROJECTS: Project[] = [
   {id:1, projectName:'ProjectX',
   languages:['es-MX', 'fr-FR', 'it-IT'],
   tasks: [
-    {id:1, taskName:'Task1',startDate:new Date('01/01/2017'),finishDate:new Date('02/02/2017'), assignments:[]},
-    {id:2, taskName:'Task2',startDate:new Date('02/02/2017'),finishDate:new Date('03/03/2017'), assignments:[]},
+    {id:1, taskName:'Task1',startDate:new Date('01/01/2017'),finishDate:new Date('02/02/2017'),
+    assignments:[
+      {id:100,language:'es-MX', testerId: 1},
+      {id:200,language:'fr-FR', testerId: 2}
+    ]},
+    {id:2, taskName:'Task2',startDate:new Date('02/02/2017'),finishDate:new Date('03/03/2017'),
+    assignments:[]},
   ]},
   {id:2, projectName:'ProjectXY',
   languages:['es-ES', 'fr-CA', 'pt-BR'],
   tasks: [
-    {id:3, taskName:'Task3',startDate:new Date('01/01/2017'),finishDate:new Date('02/02/2017'), assignments:[]},
-    {id:4, taskName:'Task4',startDate:new Date('02/02/2017'),finishDate:new Date('03/03/2017'), assignments:[]},
+    {id:3, taskName:'Task3',startDate:new Date('01/01/2017'),finishDate:new Date('02/02/2017'),
+    assignments:[]},
+    {id:4, taskName:'Task4',startDate:new Date('02/02/2017'),finishDate:new Date('03/03/2017'),
+    assignments:[]},
   ]},
 ];
 
