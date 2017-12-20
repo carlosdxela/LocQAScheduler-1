@@ -13,7 +13,7 @@
   </thead>
   <tbody>
     <tr  *ngFor="let task of tasks">
-      <td>{{task.id}}</td>
+      <td>{{task._id}}</td>
       <td>{{task.taskName}}</td>
       <td>{{task.startDate | date:'shortDate'}}</td>
       <td>{{task.finishDate | date: 'shortDate'}}</td>

@@ -16,6 +16,7 @@ import { TesterService } from '../tester.service';
 export class TesterDetailComponent {
 
   tester$: Observable<Tester>;
+  tester: Tester;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,13 +27,29 @@ export class TesterDetailComponent {
   }
 
   ngOnInit() {
+    let id1: String;
     this.tester$ = this.route.paramMap
       .switchMap((params: ParamMap) =>
-        this.service.getTesterbyId(params.get('id')));
+        this.service.getTesterbyId(params.get('id'))
+      );
+
+    this.route.paramMap
+        .switchMap((params: ParamMap) =>
+          this.service.getTesterbyId(params.get('id')))
+        .subscribe((tester:Tester)=>{
+          this.tester = new Tester(tester);
+          console.log(tester);
+        });
   }
 
   gotoTesters(){
+    if(this.tester){
+      console.log("Leaving tester: " + this.tester._id);
+      this.service.updateTester(this.tester._id.toString(), this.tester);
+    }
+
     this.router.navigate(['/testers']);
+
   }
 
 

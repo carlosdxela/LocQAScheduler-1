@@ -23,14 +23,17 @@ export class TaskEditComponent implements OnInit {
 
   addNewTask(){
     let task = new Task;
+    console.log("Tryinng to add a task on " + this.project_Id);
     this.projectService.addTaskToProject(this.project_Id);
+    this.tasks = this.projectService.getTasksbyPId(this.project_Id);
   }
 
   deleteTask(taskId: string){
-    if (confirm("Are you sure you want to delete this item?"))
+    if (confirm("Are you sure you want to delete this item? with ID: " + taskId))
     {
       console.log("Will attempt to delete Task with id:" + taskId);
-      this.tasks=this.projectService.deleteTaskFromProject(this.project_Id, taskId);
+      this.projectService.deleteTaskFromProject(this.project_Id, taskId);
+      this.tasks = this.projectService.getTasksbyPId(this.project_Id);
     }
   }
 

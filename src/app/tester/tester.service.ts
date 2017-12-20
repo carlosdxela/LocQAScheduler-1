@@ -9,39 +9,42 @@ import { delay } from 'rxjs/operators';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import { Http } from '@angular/http';
+import { Headers, Http, RequestOptions } from '@angular/http';
 
 const API_URL = environment.apiUrl;
 
-const TESTERS: Tester[] = [
-  {id:1, firstName:'John', lastName:'Doe',
-  alias:'', email:'', languages:['es-MX', 'fr-FR']},
-  {id:2, firstName:'Tony', lastName:'Dore',
-  alias:'', email:'', languages:['es-ES']},
-  {id:3, firstName:'Brohn', lastName:'Dole',
-  alias:'', email:'', languages:['fr-FR']},
-  {id:4, firstName:'Dohny', lastName:'Dope',
-  alias:'', email:'', languages:['it-IT']},
-  {id:5, firstName:'Juann', lastName:'Don',
-  alias:'', email:'', languages:['pt-BR']}
-];
+// const TESTERS: Tester[] = [
+//   {id:1, firstName:'John', lastName:'Doe',
+//   alias:'', email:'', languages:['es-MX', 'fr-FR']},
+//   {id:2, firstName:'Tony', lastName:'Dore',
+//   alias:'', email:'', languages:['es-ES']},
+//   {id:3, firstName:'Brohn', lastName:'Dole',
+//   alias:'', email:'', languages:['fr-FR']},
+//   {id:4, firstName:'Dohny', lastName:'Dope',
+//   alias:'', email:'', languages:['it-IT']},
+//   {id:5, firstName:'Juann', lastName:'Don',
+//   alias:'', email:'', languages:['pt-BR']}
+// ];
 
 @Injectable()
 export class TesterService implements OnInit{
 
   lastId : number = 5;
   //placeholder
-  testers: Tester[]=TESTERS;
+  testers: Tester[];//=TESTERS;
 
 
 
-  constructor(private http: Http) { }
+  constructor(private http: Http) {
+  this.testers = new Array<Tester>();
+  }
 
   ngOnInit():void{
 //    this.http.get(API_URL+'/testers').subscribe(data=>{
 //      this.testers = data['testers'];
 //    });
   }
+
   getTesters(): Observable<Tester[]>{
     return this.http
       .get(API_URL+'/testers')
@@ -52,28 +55,73 @@ export class TesterService implements OnInit{
       .catch(this.handleError);
     //return of(this.testers).pipe(delay(500));
   }
+
   private handleError (error: Response | any) {
     console.error('ApiService::handleError', error);
     return Observable.throw(error);
   }
+
   //need to add functions for add, edit and delete
-  addTester(tester: Tester): Observable<Tester[]>{
-    if (!tester.id){
-      tester.id = ++this.lastId;
-    }
-    this.testers.push(tester);
-    return of(this.testers);
+  addTester(tester: Tester): String{
+  let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    let newId : string;
+    console.log(tester.toString());
+   this.http
+    .post(API_URL + '/testers', JSON.stringify(tester), options)
+    .subscribe(response=>{
+      console.log("Sent: " + JSON.stringify(tester) + ", " + response.json());
+      let tester1:Tester = response.json();
+      newId = tester1._id.toString();
+      console.log("with ID: " + newId);
+    });
+
+    return newId;
   }
 
   getTesterbyId(testerId: string): Observable<Tester>{
-    return this.getTesters()
-      .map(testers => testers.find(tester=>tester.id === +testerId));
+    // console.log("tester in id: " + this.testers + " looking for " + testerId);
+    // return this.getTesters()
+    //   .map(testers => testers.find(tester=>tester._id === +testerId));
+    return this.http
+      .get(API_URL+'/testers/' + testerId)
+      .map(response=>{
+        console.log(response.statusText);
+        const testers = response.json();
+        return testers;
+      })
+      .catch(this.handleError);
+  }
+
+  updateTester(testerId: string, tester:Tester): Observable<Tester>{
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+      let options = new RequestOptions({ headers: headers });
+    let myTest;
+    console.log("Preparing to updateTester: " + testerId + " " + JSON.stringify(tester));
+    this.http
+    .put(API_URL+'/testers/'+testerId, JSON.stringify(tester), options)
+    .subscribe(response=>{
+      console.log(response.statusText);
+
+      const testers = response.json();
+      myTest = testers;
+      return testers;
+    })
+    return myTest;
   }
 
   deleteTester(testerId: string): Observable<Tester[]>{
     console.log("testerService: will try to filter " + (testerId));
-    this.testers = this.testers
-      .filter(tester=>tester.id != +testerId);
+    // this.testers = this.testers
+    //   .filter(tester=>tester._id != +testerId);
+    let delUrl = API_URL+'/testers/' + testerId;
+    console.log(delUrl);
+    this.http
+      .delete(delUrl)
+      .subscribe(resp=>{
+        console.log(resp.statusText);
+        this.testers = resp.json();
+      })
     return of(this.testers);
   }
 }

@@ -1,9 +1,9 @@
-<p>
-  project-list works!
-</p>
 <div>
   <button (click)="addNewProject()">
     <span class="badge"> ADD NEW PROJECT </span>
+  </button>
+  <button (click)="refresh()">
+    <span class="badge"> REFRESH </span>
   </button>
 </div>
 
@@ -13,7 +13,7 @@
   (click)="onSelect(project)" [class.selected]="project === selectedProject">
     <div accordion-heading class="clearfix">
       <div >
-        ID: <b>{{project.id}}</b>
+        ID: <b>{{project._id}}</b>
       </div>
       <div >
         <h3><small>Project Name:</small> {{project.projectName}}</h3>
@@ -22,10 +22,10 @@
         Project Languages: {{project.languages}}
       </div>
       <div >
-        <a [routerLink]="['/projects', project.id]">
+        <a [routerLink]="['/projects', project._id]">
           <span class="badge"> EDIT </span>
         </a>
-        <button (click)="deleteProject(project.id)">
+        <button (click)="deleteProject(project._id)">
           <span class="badge"> DELETE </span>
         </button>
       </div>

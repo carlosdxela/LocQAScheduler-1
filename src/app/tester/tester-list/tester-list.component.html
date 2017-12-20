@@ -10,7 +10,7 @@
   [class.selected]="tester === selectedTester">
 
     <div >
-      ID: <b>{{tester.id}}</b>
+      ID: <b>{{tester._id}}</b>
     </div>
     <div >
       <h3><small>Tester Name:</small> {{tester.firstName}} {{tester.lastName}}</h3>
@@ -19,10 +19,10 @@
       Tester Languages: {{tester.languages}}
     </div>
     <div >
-      <a [routerLink]="['/testers', tester.id]">
+      <a [routerLink]="['/testers', tester._id]">
         <span class="badge"> EDIT </span>
       </a>
-      <button (click)="deleteTester(tester.id)">
+      <button (click)="deleteTester(tester._id)">
         <span class="badge"> DELETE </span>
       </button>
     </div>

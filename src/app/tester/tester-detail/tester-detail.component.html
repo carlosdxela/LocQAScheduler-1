@@ -1,8 +1,8 @@
 <form #testerForm="ngForm">
-  <div class="container" *ngIf="tester$ | async as tester">
+  <div class="container" *ngIf="tester">
     <h3>{{ tester.firstName }} {{tester.lastName }}</h3>
     <div class="form-group">
-      <label class="control-label">ID: {{tester.id}}
+      <label class="control-label">ID: {{tester._id}}
       </label>
     </div>
     <div class="form-group">

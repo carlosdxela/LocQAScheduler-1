@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 
@@ -11,11 +11,15 @@ import { TesterService } from '../tester.service';
   templateUrl: './tester-list.component.html',
   styleUrls: ['./tester-list.component.css']
 })
-export class TesterListComponent{
+export class TesterListComponent implements OnInit{
 
   testers: Observable<Tester[]>;
   selectedTester: Tester;
   constructor(private testerService: TesterService, private router: Router) {
+    this.testers = this.testerService.getTesters();
+   }
+
+   ngOnInit(){
     this.testers = this.testerService.getTesters();
    }
 
@@ -25,16 +29,21 @@ export class TesterListComponent{
 
    addNewTester(){
      let newT = new Tester;
-
-     console.log("New Tester:" + newT);
-     this.testerService.addTester(newT);
-     this.router.navigate(['/testers/' + newT.id]);
+     newT.firstName = "";
+     newT.lastName = "";
+     console.log("New Tester:" + JSON.stringify(newT));
+     let newId:String = this.testerService.addTester(newT);
+     console.log(newId);
+     if(newId != null && newId != "")
+     {
+       this.router.navigate(['/testers/' + newId]);
+     }
    }
 
    deleteTester(testerId){
      if (confirm("Are you sure you want to delete this item?"))
      {
-     console.log("Attempt to delete Tester with ID:" + testerId);
+     //console.log("Attempt to delete Tester with ID:" + testerId);
      this.testerService.deleteTester(testerId);
      this.testers = this.testerService.getTesters();
     }
