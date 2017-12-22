@@ -22,9 +22,9 @@
         Project Languages: {{project.languages}}
       </div>
       <div >
-        <a [routerLink]="['/projects', project._id]">
+        <button [routerLink]="['/projects', project._id]">
           <span class="badge"> EDIT </span>
-        </a>
+        </button>
         <button (click)="deleteProject(project._id)">
           <span class="badge"> DELETE </span>
         </button>

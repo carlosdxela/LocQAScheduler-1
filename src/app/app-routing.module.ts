@@ -6,8 +6,10 @@ const routes: Routes = [
   {path: 'testers',
   loadChildren: 'app/tester/tester.module#TesterModule'},
   {path: 'projects',
-  loadChildren: 'app/project/project.module#ProjectModule'},  
-  {path: '**', component: PageNotFoundComponent}
+  loadChildren: 'app/project/project.module#ProjectModule'},
+  {path: 'assignments',
+  loadChildren: 'app/assignments/assignments.module#AssignmentsModule'},
+  {path: '**', component: PageNotFoundComponent},
 ];
 
 @NgModule({

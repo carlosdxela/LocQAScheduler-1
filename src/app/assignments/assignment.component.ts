@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 
-import { ProjectService } from './project.service';
+import { ProjectService } from '../project/project.service';
 import { TesterService } from '../tester/tester.service';
 
 @Component({
   template:`
-    <h2>Projects</h2>
+    <h2>Assignments</h2>
     <router-outlet></router-outlet>
   `,
-  providers: [ProjectService, TesterService]
+  providers: [ProjectService,TesterService]
 })
 
-export class ProjectComponent{
+export class AssignmentComponent{
 
 }

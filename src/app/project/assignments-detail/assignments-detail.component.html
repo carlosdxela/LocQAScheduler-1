@@ -1,0 +1,25 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Language</th>
+      <th>Tester</th>
+      <th>
+
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr  *ngFor="let assignment of assignments; let i = index">
+      <td>
+        {{assignment.language}}
+      </td>
+      <td>
+        {{assignmentTesters[i]}}
+      </td>
+      <td>
+        <button><span class="glyphicon glyphicon-edit"></span></button>
+
+      </td>
+    </tr>
+  </tbody>
+</table>

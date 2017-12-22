@@ -50,7 +50,9 @@ export class TesterService implements OnInit{
       .get(API_URL+'/testers')
       .map(response=>{
         const testers = response.json();
+        console.log("getTesters()");
         return testers.map((tester)=>new Tester(tester));
+
       })
       .catch(this.handleError);
     //return of(this.testers).pipe(delay(500));

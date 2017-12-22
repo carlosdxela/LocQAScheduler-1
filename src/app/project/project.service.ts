@@ -8,7 +8,11 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { Project } from './project';
 import { Task } from './task';
+import { flatAssignment } from './flatAssignments';
+
 import { Headers, Http, RequestOptions } from '@angular/http';
+import { TesterService } from '../tester/tester.service';
+import {Tester} from '../tester/tester';
 
 const API_URL = environment.apiUrl;
 
@@ -30,12 +34,12 @@ const API_URL = environment.apiUrl;
 @Injectable()
 export class ProjectService {
 
-  lastId : number = 2;
-  lastTaskId : number = 4;
-  //placeholder
-  projects: Project[];
 
-  constructor(private http: Http) { }
+  projects: Project[];
+  flatAssignments: flatAssignment[];
+  testers: Tester[];
+
+  constructor(private http: Http, private testerService:TesterService) { }
 
   private handleError (error: Response | any) {
     console.error('ApiService::handleError', error);
@@ -43,16 +47,79 @@ export class ProjectService {
   }
 
   getProjects(): Observable<Project[]>{
-    return this.http
+    let ret;
+    ret = this.http
       .get(API_URL+'/projects')
       .map(response=>{
         const projects = response.json();
         return projects.map((project)=>new Project(project));
       })
       .catch(this.handleError);
+    this.http.get(API_URL+'/projects')
+    .subscribe(response=>{
+      this.projects = response.json();
+      //console.log("Projects:" + JSON.stringify(this.projects));
+    });
+    return ret;
     //return of(this.projects);
   }
 
+  makeFlatAssignmentTable(){
+    this.getProjects().subscribe(response=>{
+      this.projects = response;
+    });
+    console.log(this.projects);
+    this.flatAssignments = new Array<flatAssignment>();
+    this.loadTesters();
+    for (let i = 0; i < this.projects.length; i++) {
+        let project:Project = this.projects[i];
+        for (let j = 0; j < project.tasks.length; j++) {
+            let task:Task = project.tasks[j];
+            for (let k = 0; k < task.assignments.length; k++) {
+              let flatA: flatAssignment = new flatAssignment();
+              flatA.projectId = project._id;
+              flatA.projectName = project.projectName;
+              flatA.taskId = task._id;
+              flatA.taskName = task.taskName;
+              flatA.languageAssignment = task.assignments[k].language;
+              flatA.testerId = task.assignments[k].tester;
+              flatA.testerName = this.getTesterName(flatA.testerId);
+              this.flatAssignments.push(flatA);
+            }
+        }
+    }
+
+  }
+
+  loadTesters(){
+    
+    this.testerService.getTesters()
+    .map(response=>{
+      this.testers = response;
+      console.log("loadTesters" + this.testers);
+    });
+  }
+
+  getTesterName(testerId:number):string{
+    this.loadTesters();
+    let s:string="";
+    let ret:Tester = new Tester();
+    if (this.testers)
+    for (let i = 0; i < this.testers.length; i++) {
+        //console.log(this.testers[i]._id + " " + testerId);
+        if (this.testers[i]._id == testerId)
+        {
+          let ret = this.testers[i];
+          //console.log(ret);
+          return (ret.firstName + " " + ret.lastName);
+        }
+    }
+    else{
+      console.log("getTesterName found testers undefined.")
+    }
+    s = ret.firstName + " " + ret.lastName;
+    return s;
+  }
   //need to add functions for add, edit and delete
   addProject(project: Project): string{
   let headers = new Headers({ 'Content-Type': 'application/json' });

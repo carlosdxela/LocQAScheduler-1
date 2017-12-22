@@ -28,12 +28,16 @@ export class ProjectDetailComponent implements OnInit {
 
   ngOnInit() {
     //this.project$ =
+    this.refresh();
+  }
+
+  refresh(){
     this.route.paramMap
       .switchMap((params: ParamMap) =>
         this.service.getProjectbyId(params.get('projectId')))
       .subscribe((project:Project)=>{
         this.project = new Project(project);
-        console.log(project);
+        //console.log(project);
       });
   }
 

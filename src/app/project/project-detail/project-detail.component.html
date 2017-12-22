@@ -1,5 +1,10 @@
 
 <form #projectForm="ngForm">
+
+    <div class="container">
+      <button class="btn btn-primary" (click)="gotoProjects()">Save and Return</button>
+      <button class="btn btn-primary" (click)="refresh()"> Refresh</button>
+    </div>
   <div class="container" *ngIf="project">
     <h3>{{ project.projectName }}</h3>
     <div class="form-group">
@@ -28,7 +33,4 @@
   </div>
 
 
-  <div>
-    <button class="btn btn-primary" (click)="gotoProjects()">Save and Return</button>
-  </div>
 </form>

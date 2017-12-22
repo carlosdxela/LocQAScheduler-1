@@ -3,18 +3,25 @@
   <table class="table">
   <thead>
     <tr>
-      <th>ID</th>
-      <th>Task Name</th>
-      <th>Start Date</th>
-      <th>Finish Date</th>
       <th>
         <button (click)="addNewTask()"><span class="glyphicon glyphicon-plus"> </span> New Task</button>
+      </th>
+      <th style="display:none">ID</th>
+      <th>Task Name</th>
+      <th style="width:1em">Start Date</th>
+      <th style="width:1em">Finish Date</th>
+
+      <th>
+
       </th>
     </tr>
   </thead>
   <tbody>
     <tr  *ngFor="let task of tasks">
-      <td>{{task._id}}</td>
+      <td>
+        <button (click)="deleteTask(task._id)"><span class="glyphicon glyphicon-remove"></span></button>
+      </td>
+      <td style="display:none">{{task._id}}</td>
       <td><input type="text" name="taskName-{{index}}"[(ngModel)]="task.taskName" /></td>
       <td>
         <input type="text" name="startDate-{{index}}"
@@ -25,8 +32,10 @@
         value="{{task.finishDate}}" [(ngModel)]="task.finishDate" />
       </td>
       <td>
-        <button (click)="deleteTask(task._id)"><span class="glyphicon glyphicon-remove"></span></button>
+        <app-assignments-detail [assignments]="task.assignments" [task_Id]="task._id" [project_Id]="project_Id"></app-assignments-detail>
       </td>
+
+
     </tr>
   </tbody>
   </table>

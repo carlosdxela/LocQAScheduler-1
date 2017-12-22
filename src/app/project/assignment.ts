@@ -1,7 +1,7 @@
 export class Assignment{
-  id: number;
+  _id: number;
   language: string = '';
-  testerId: number; 
+  tester: number; 
 
   constructor(values: Object = {}){
     Object.assign(this, values);
