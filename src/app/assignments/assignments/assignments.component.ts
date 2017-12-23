@@ -19,12 +19,34 @@ export class AssignmentsComponent implements OnInit {
 
   projects: Project[];
   flatAssignments:flatAssignment[];
+  filteredAssignments:flatAssignment[];
   testers: Tester[];
+
+  selectedTester:Tester;
 
   constructor(private projectService:ProjectService, private testerService:TesterService) {
   this.flatAssignments = new Array<flatAssignment>()}
 
   ngOnInit() {
+    this.loadflatAssignments();
+    this.resetView();
+    this.loadTesters();
+    if (this.projects)
+    console.log("Projects:"+ this.projects);
+
+  }
+
+  testerSelect(){
+    console.log("Changing view to filtered by " + this.selectedTester.firstName + " " + this.selectedTester.lastName);
+    this.filteredAssignments = this.flatAssignments.filter(tester=>tester.testerId == this.selectedTester._id);
+  }
+
+  resetView(){
+    console.log("Reseting view.");
+    this.filteredAssignments = this.flatAssignments;
+  }
+
+  loadflatAssignments(){
     this.projectService.getProjects()
     .subscribe(response=>{
       this.projects = response;
@@ -32,12 +54,7 @@ export class AssignmentsComponent implements OnInit {
       this.makeFlatAssignmentTable();
       this.flatAssignments = this.flatAssignments;
     });
-    this.loadTesters();
-    if (this.projects)
-    console.log("Projects:"+ this.projects);
-
   }
-
   makeFlatAssignmentTable(){
 
     //console.log("make:"+JSON.stringify(this.projects));

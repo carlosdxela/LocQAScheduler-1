@@ -3,9 +3,7 @@
     <tr>
       <th>Language</th>
       <th>Tester</th>
-      <th>
 
-      </th>
     </tr>
   </thead>
   <tbody>
@@ -15,11 +13,13 @@
       </td>
       <td>
         {{assignmentTesters[i]}}
+        <select [(ngModel)]="selectedTester" (change)="testerSelect(assignment._id, assignment.language)">
+          <option *ngFor="let t of testers" [ngValue]="t" (change)="onTesterSelect(t._id)">
+            {{t.firstName}} {{t.lastName}}
+          </option>
+        </select>
       </td>
-      <td>
-        <button><span class="glyphicon glyphicon-edit"></span></button>
 
-      </td>
     </tr>
   </tbody>
 </table>

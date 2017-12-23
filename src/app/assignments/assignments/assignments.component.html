@@ -1,4 +1,19 @@
 <div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      Filter Assignments by Tester:
+    </div>
+    <div class="col-sm-3">
+      <select [(ngModel)]="selectedTester" (change)="testerSelect()">
+        <option *ngFor="let t of testers" [ngValue]="t" >
+          {{t.firstName}} {{t.lastName}}
+        </option>
+      </select>
+    </div >
+    <div>
+      <button (click)="resetView()">Reset Filter</button>
+    </div>
+  </div>
   <table class="table">
     <thead>
       <tr>
@@ -17,7 +32,7 @@
       </tr>
     </thead>
     <tbody *ngIf="flatAssignments">
-      <tr *ngFor="let assignment of flatAssignments">
+      <tr *ngFor="let assignment of filteredAssignments">
         <th>
           {{assignment.projectName}}
         </th>

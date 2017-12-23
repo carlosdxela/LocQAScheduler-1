@@ -9,11 +9,16 @@ import { ProjectRoutingModule }   from './project-routing.module';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { TaskEditComponent } from './task-edit/task-edit.component';
 import {AssignmentsDetailComponent} from './assignments-detail/assignments-detail.component';
+import { AssignmentsDetailDialogComponent } from './assignments-detail/assignments-detail-dialog/assignments-detail-dialog.component';
 
 @NgModule({
   imports: [
     SharedModule, CommonModule, ProjectRoutingModule, AccordionModule.forRoot(),
   ],
-  declarations: [ProjectComponent, ProjectListComponent, TaskListComponent, ProjectDetailComponent, TaskEditComponent, AssignmentsDetailComponent]
+  entryComponents: [AssignmentsDetailDialogComponent],
+  declarations: [ProjectComponent, ProjectListComponent,
+    TaskListComponent, ProjectDetailComponent,
+    TaskEditComponent, AssignmentsDetailComponent,
+    AssignmentsDetailDialogComponent]
 })
 export class ProjectModule { }

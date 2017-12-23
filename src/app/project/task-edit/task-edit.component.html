@@ -8,11 +8,11 @@
       </th>
       <th style="display:none">ID</th>
       <th>Task Name</th>
-      <th style="width:1em">Start Date</th>
-      <th style="width:1em">Finish Date</th>
+      <th style="width:100px">Start Date</th>
+      <th style="width:100px">Finish Date</th>
 
       <th>
-
+        Assignments
       </th>
     </tr>
   </thead>
@@ -24,12 +24,12 @@
       <td style="display:none">{{task._id}}</td>
       <td><input type="text" name="taskName-{{index}}"[(ngModel)]="task.taskName" /></td>
       <td>
-        <input type="text" name="startDate-{{index}}"
-        value="{{task.startDate " [(ngModel)]="task.startDate" />
+        <input type="date" name="startDate-{{index}}"
+        value="{{task.startDate " [ngModel]="task.startDate | date:'yyyy-MM-dd'" (ngModelChange)="task.startDate = $event" />
       </td>
       <td>
-        <input type="text" name="startDate-{{index}}"
-        value="{{task.finishDate}}" [(ngModel)]="task.finishDate" />
+        <input type="date" name="startDate-{{index}}"
+        value="{{task.finishDate}}" [ngModel]="task.finishDate | date:'yyyy-MM-dd'" (ngModelChange)="task.finishDate=$event" />
       </td>
       <td>
         <app-assignments-detail [assignments]="task.assignments" [task_Id]="task._id" [project_Id]="project_Id"></app-assignments-detail>

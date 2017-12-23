@@ -8,6 +8,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { Project } from './project';
 import { Task } from './task';
+import { Assignment } from './assignment';
 import { flatAssignment } from './flatAssignments';
 
 import { Headers, Http, RequestOptions } from '@angular/http';
@@ -39,7 +40,9 @@ export class ProjectService {
   flatAssignments: flatAssignment[];
   testers: Tester[];
 
-  constructor(private http: Http, private testerService:TesterService) { }
+  constructor(private http: Http, private testerService:TesterService) {
+    console.log("API_URL " + API_URL);
+  }
 
   private handleError (error: Response | any) {
     console.error('ApiService::handleError', error);
@@ -92,7 +95,7 @@ export class ProjectService {
   }
 
   loadTesters(){
-    
+
     this.testerService.getTesters()
     .map(response=>{
       this.testers = response;
@@ -256,5 +259,38 @@ export class ProjectService {
     // project = this.projects.find(project=>project._id === +projectId);
     // project.tasks.filter(task => task.id != +taskId);
     return project.tasks;
+  }
+
+  getAssignments(projectId: string, taskId: string):Assignment[]{
+    let myAssignments : Assignment[];
+    console.log("Trying to get tasks for projectId:" + projectId);
+    this.http
+      .get(API_URL+'/projects/' + projectId + '/tasks/' + taskId + '/assignments')
+      .subscribe(response=>{
+        console.log("Received tasks " + JSON.stringify(response.json));
+        const assignments = response.json();
+        myAssignments = assignments;
+        //return tasks.map((task)=>new Task(task));
+      });
+
+    return myAssignments;
+  }
+
+  updateAssignment(projectId:string, taskId:string, lang:string, assignment:Assignment):Observable<Project>{
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+      let options = new RequestOptions({ headers: headers });
+    let myAssignment;
+
+    this.http
+    .put(API_URL+'/projects/'+projectId + '/tasks/' + taskId + '/assignments?lang=' + lang,
+      JSON.stringify(assignment), options)
+    .subscribe(response=>{
+      console.log(response.statusText);
+
+      const assignments = response.json();
+      myAssignment = assignments;
+      return assignments;
+    })
+    return myAssignment;
   }
 }

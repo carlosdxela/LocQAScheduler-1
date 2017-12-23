@@ -36,6 +36,7 @@ export class TesterService implements OnInit{
 
 
   constructor(private http: Http) {
+    console.log("API_URL " + API_URL);
   this.testers = new Array<Tester>();
   }
 
