@@ -24,9 +24,15 @@
     <tbody>
       <tr  *ngFor="let task of tasks">
         <td>
-          <button class="btn btn-danger btn-sm" (click)="deleteTask(task._id)">
-            <span class="glyphicon glyphicon-remove"></span>
-          </button>
+          <div class="btn-group-vertical">
+            <button class="btn btn-danger btn-sm" (click)="deleteTask(task._id)">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+            <button class="btn btn-success" (click)="saveTask(task._id, task)">
+              <span class="glyphicon glyphicon-ok"></span>
+            </button>
+          </div>
+
         </td>
         <td style="display:none">{{task._id}}</td>
         <td><input type="text" name="taskName-{{index}}"[(ngModel)]="task.taskName" /></td>

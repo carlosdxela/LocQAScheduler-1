@@ -13,7 +13,8 @@ import { ProjectService } from '../project.service';
 })
 export class ProjectListComponent implements OnInit {
 
-  projects: Observable<Project[]>;
+  projects$: Observable<Project[]>;
+  projects: Project[];
   selectedProject: Project;
   constructor(private projectService: ProjectService, private router: Router) {
     this.refresh();
@@ -28,25 +29,35 @@ export class ProjectListComponent implements OnInit {
    }
 
    refresh(){
-    this.projects = this.projectService.getProjects();
+    this.projectService.getProjects()
+    .subscribe(response=>{
+      this.projects = response;
+    });
    }
 
    addNewProject(){
      let newT = new Project;
-     let newTId : String;
+     let newTId : number;
      console.log("New Project:" + JSON.stringify(newT));
-     newTId = this.projectService.addProject(newT);
-     console.log("new ProjectID:" + newTId);
-     //if (newTId!=null)
-      this.router.navigate(['/projects/' + newTId]);
+     this.projectService.addProject(newT)
+     .subscribe(response=>{
+       newTId = response._id;
+       console.log("new ProjectID:" + newTId);
+       //if (newTId!=null)
+        this.router.navigate(['/projects/' + newTId]);
+     });
+
    }
 
    deleteProject(projectId){
      if (confirm("Are you sure you want to delete this item?"))
      {
      console.log("Attempt to delete Tester with ID:" + projectId);
-     this.projectService.deleteProject(projectId);
-     this.projects = this.projectService.getProjects();
+     this.projectService.deleteProject(projectId)
+     .subscribe(resp=>{
+       this.refresh();
+     });
+
     }
     else {
       console.log("Item not deleted");

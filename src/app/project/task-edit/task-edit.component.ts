@@ -21,23 +21,43 @@ export class TaskEditComponent implements OnInit {
 
   }
 
+  refresh(){
+    this.projectService.getTasksbyPId(this.project_Id)
+    .subscribe(response=>{
+      this.tasks = response;
+    });
+  }
   addNewTask(){
     let task = new Task;
     console.log("Tryinng to add a task on " + this.project_Id);
-    this.projectService.addTaskToProject(this.project_Id);
-    this.tasks = this.projectService.getTasksbyPId(this.project_Id);
+    this.projectService.addTaskToProject(this.project_Id)
+    .subscribe(response=>{
+      this.refresh();
+    });
+
   }
 
   deleteTask(taskId: string){
     if (confirm("Are you sure you want to delete this item? with ID: " + taskId))
     {
       console.log("Will attempt to delete Task with id:" + taskId);
-      this.projectService.deleteTaskFromProject(this.project_Id, taskId);
-      this.tasks = this.projectService.getTasksbyPId(this.project_Id);
+      this.projectService.deleteTaskFromProject(this.project_Id, taskId)
+      .subscribe(response=>{
+        this.refresh();
+      });
+
     }
   }
 
+  saveTask(taskId: string, task: Task){
+      this.projectService.updateTask(this.project_Id, taskId, task)
+      .subscribe(response=>{
+        this.refresh();
+      });
+  }
+
   ngOnInit() {
+    this.refresh();
   }
 
 }

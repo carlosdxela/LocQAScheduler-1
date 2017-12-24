@@ -8,17 +8,11 @@
         REFRESH
       </button>
     </div>
-
   </div>
-
   <accordion [closeOthers]=true>
-
-    <accordion-group #group *ngFor="let project of projects | async"
+    <accordion-group #group *ngFor="let project of projects"
     (click)="onSelect(project)" [class.selected]="project === selectedProject">
       <div accordion-heading class="clearfix">
-        <div >
-          ID: {{project._id}}
-        </div>
         <div >
           <h3><small>Project Name:</small> {{project.projectName}}</h3>
         </div>
@@ -36,7 +30,5 @@
       </div>
       <app-task-list [tasks]="project.tasks"></app-task-list>
     </accordion-group>
-
   </accordion>
-
 </div>

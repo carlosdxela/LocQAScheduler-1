@@ -65,21 +65,24 @@ export class TesterService implements OnInit{
   }
 
   //need to add functions for add, edit and delete
-  addTester(tester: Tester): String{
+  addTester(tester: Tester): Observable<Tester>{
   let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let newId : string;
-    console.log(tester.toString());
-   this.http
+    console.log("testerService.addTester " + tester.toString());
+   return this.http
     .post(API_URL + '/testers', JSON.stringify(tester), options)
-    .subscribe(response=>{
-      console.log("Sent: " + JSON.stringify(tester) + ", " + response.json());
-      let tester1:Tester = response.json();
-      newId = tester1._id.toString();
-      console.log("with ID: " + newId);
+    .map(response=>{
+      return response.json();
     });
+    // .subscribe(response=>{
+    //   console.log("Sent: " + JSON.stringify(tester) + ", " + response.json());
+    //   let tester1:Tester = response.json();
+    //   newId = tester1._id.toString();
+    //   console.log("with ID: " + newId);
+    // });
 
-    return newId;
+    //return of(new Tester());
   }
 
   getTesterbyId(testerId: string): Observable<Tester>{
@@ -119,12 +122,15 @@ export class TesterService implements OnInit{
     //   .filter(tester=>tester._id != +testerId);
     let delUrl = API_URL+'/testers/' + testerId;
     console.log(delUrl);
-    this.http
+    return this.http
       .delete(delUrl)
-      .subscribe(resp=>{
-        console.log(resp.statusText);
-        this.testers = resp.json();
+      .map(resp=>{
+        return resp.json();
       })
-    return of(this.testers);
+      // .subscribe(resp=>{
+      //   console.log(resp.statusText);
+      //   this.testers = resp.json();
+      // })
+    //return of(this.testers);
   }
 }

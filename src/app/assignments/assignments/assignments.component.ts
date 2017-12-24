@@ -90,7 +90,7 @@ export class AssignmentsComponent implements OnInit {
     this.testerService.getTesters()
     .subscribe(response=>{
       this.testers = response;
-      console.log("Testers:" + JSON.stringify(this.testers));
+      //console.log("Testers:" + JSON.stringify(this.testers));
       //this.makeFlatAssignmentTable();
     });
     //console.log(this.testers);

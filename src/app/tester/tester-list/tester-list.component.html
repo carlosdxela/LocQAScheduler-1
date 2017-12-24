@@ -1,24 +1,28 @@
 <div class="container">
   <div class="row">
-    <button class="btn btn-primary" (click)="addNewTester()">
-      ADD NEW TESTER
-    </button>
+    <div class="btn group">
+      <button class="btn btn-primary" (click)="addNewTester()">
+        Add New Tester
+      </button>
+    </div>
+      <button class="btn btn-primary" (click)="refreshTester()">
+        Refresh
+      </button>
   </div>
   <div class="row">
     <ul class="list-group" >
-      <li class="list-group-item" *ngFor="let tester of testers | async"
+      <li class="list-group-item" *ngFor="let tester of testers"
       (click)="onSelect(tester)"
       [class.selected]="tester === selectedTester">
+        <div >
+          <div >
+            <h3><small>Tester Name:</small> {{tester.firstName}} {{tester.lastName}}</h3>
+          </div>
+          <div >
+            Tester Languages: {{tester.languages}}
+          </div>
+        </div>
 
-        <div >
-          ID: <b>{{tester._id}}</b>
-        </div>
-        <div >
-          <h3><small>Tester Name:</small> {{tester.firstName}} {{tester.lastName}}</h3>
-        </div>
-        <div >
-          Tester Languages: {{tester.languages}}
-        </div>
         <div >
           <div class="btn-group" role="group">
             <button class="btn btn-primary btn-sm" [routerLink]="['/testers', tester._id]">

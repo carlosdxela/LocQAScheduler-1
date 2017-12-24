@@ -124,22 +124,25 @@ export class ProjectService {
     return s;
   }
   //need to add functions for add, edit and delete
-  addProject(project: Project): string{
+  addProject(project: Project): Observable<Project>{
   let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let newId : string;
     console.log("addProject " + JSON.stringify(project));
-   this.http
+  return this.http
     .post(API_URL + '/projects', JSON.stringify(project), options)
-    .subscribe(response=>{
-      console.log("Sent: " + JSON.stringify(project) + ", " + response.json());
-      let project1:Project;
-      project1 = response.json();
-      newId = project1._id.toString();
-      console.log("with ID: " + newId);
-      return newId;
-    });
-    return newId;
+    .map(response=>{
+      return response.json();
+    })
+    // .subscribe(response=>{
+    //   console.log("Sent: " + JSON.stringify(project) + ", " + response.json());
+    //   let project1:Project;
+    //   project1 = response.json();
+    //   newId = project1._id.toString();
+    //   console.log("with ID: " + newId);
+    //   return newId;
+    // });
+    //return newId;
   }
 
   getProjectbyId(projectId: string): Observable<Project>{
@@ -177,31 +180,37 @@ export class ProjectService {
     console.log("projectService: will try to filter " + (projectId));
     let delUrl = API_URL+'/projects/' + projectId;
     console.log(delUrl);
-    this.http
+    return this.http
       .delete(delUrl)
-      .subscribe(resp=>{
-        console.log(resp.statusText);
-        this.projects = resp.json();
-      })
-    return of(this.projects);
+      .map(response=>{
+        return response.json();
+      });
+      // .subscribe(resp=>{
+      //   console.log(resp.statusText);
+      //   this.projects = resp.json();
+      // })
+    //return of(this.projects);
     // this.projects = this.projects
     //   .filter(project=>project._id != +projectId); //the + converts to number
     // return of(this.projects);
   }
 
-  getTasksbyPId(projectId: string):Task[]{
+  getTasksbyPId(projectId: string):Observable<Task[]>{
     let myTasks : Task[];
-    console.log("Trying to get tasks for projectId:" + projectId);
-    this.http
+    console.log("Getting tasks for projectId:" + projectId);
+    return this.http
       .get(API_URL+'/projects/' + projectId + '/tasks')
-      .subscribe(response=>{
-        console.log("Received tasks " + JSON.stringify(response.json));
-        const tasks = response.json();
-        myTasks = tasks;
-        //return tasks.map((task)=>new Task(task));
-      });
+      .map(response=>{
+        return response.json();
+      })
+      // .subscribe(response=>{
+      //   console.log("Received tasks " + JSON.stringify(response.json));
+      //   const tasks = response.json();
+      //   myTasks = tasks;
+      //   //return tasks.map((task)=>new Task(task));
+      // });
 
-    return myTasks;
+    //return myTasks;
   }
   getTaskbyPId_TaskId(projectId: string, taskId: string):Observable<Task>{
     // let pjs = this.projects.find(project=>project._id === +projectId);
@@ -217,48 +226,65 @@ export class ProjectService {
     //return of(task);
   }
 
-  addTaskToProject(projectId: string):string{
+  addTaskToProject(projectId: string):Observable<Task>{
     let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
       let newId : string;
       let task : Task;
       console.log("addTask " + JSON.stringify(task));
-     this.http
+     return this.http
       .post(API_URL + '/projects/' + projectId + '/tasks', JSON.stringify(task), options)
-      .subscribe(response=>{
-        console.log("Sent: " + JSON.stringify(task) + ", " + response.json());
-        let task1:Task;
-        task1 = response.json();
-        newId = task1._id.toString();
-        console.log("with ID: " + newId);
-        return newId;
-      });
-      return newId;
-    // let project:Project;
-    // project = this.projects.find(project=>project._id === +projectId);
-    // let myTask = new Task();
-    // myTask.id = this.lastTaskId++;
-    // project.tasks.push(myTask);
-    //return of(this.projects);
+      .map(response=>{
+        return response.json();
+      })
+      .catch(this.handleError);
+      // .subscribe(response=>{
+      //   console.log("Sent: " + JSON.stringify(task) + ", " + response.json());
+      //   let task1:Task;
+      //   task1 = response.json();
+      //   newId = task1._id.toString();
+      //   console.log("with ID: " + newId);
+      //   return newId;
+      // });
+      //return newId;
+
   }
 
-  deleteTaskFromProject(projectId: string, taskId: string):Task[]{
+  updateTask(projectId: string, taskId: string, task: Task):Observable<Task[]>{
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    //console.log("Trying to update taskId:" + taskId + " on projectId " + projectId + " with task " + JSON.stringify(task));
+    let updateURL = API_URL + '/projects/' + projectId + '/tasks/' + taskId;
+    //console.log("API_URL "+updateURL);
+    return this.http
+      .put(updateURL, JSON.stringify(task), options)
+      .map(response=>{
+        return response.json();
+      })
+      .catch(this.handleError);
+  }
+
+  deleteTaskFromProject(projectId: string, taskId: string):Observable<Task[]>{
     let project:Project = new Project();
     console.log("projectService: will try to filter " + (projectId));
     let delUrl = API_URL+'/projects/' + projectId + '/tasks/' + taskId;
     console.log(delUrl);
-    this.http
+    return this.http
       .delete(delUrl)
-      .subscribe(resp=>{
-        console.log(resp.statusText);
-        project = resp.json();
-        console.log("got project data " + JSON.stringify(project));
-        return project.tasks;
-      });
+      .map(response=>{
+        return response.json();
+      })
+      .catch(this.handleError);
+      // .subscribe(resp=>{
+      //   console.log(resp.statusText);
+      //   project = resp.json();
+      //   console.log("got project data " + JSON.stringify(project));
+      //   return project.tasks;
+      // });
     //return (this.projects);
     // project = this.projects.find(project=>project._id === +projectId);
     // project.tasks.filter(task => task.id != +taskId);
-    return project.tasks;
+    //return project.tasks;
   }
 
   getAssignments(projectId: string, taskId: string):Assignment[]{
