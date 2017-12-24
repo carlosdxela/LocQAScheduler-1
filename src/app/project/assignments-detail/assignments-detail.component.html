@@ -12,12 +12,17 @@
         {{assignment.language}}
       </td>
       <td>
-        {{assignmentTesters[i]}}
-        <select [(ngModel)]="selectedTester" (change)="testerSelect(assignment._id, assignment.language)">
-          <option *ngFor="let t of testers" [ngValue]="t" (change)="onTesterSelect(t._id)">
-            {{t.firstName}} {{t.lastName}}
-          </option>
-        </select>
+        <div class="">
+          {{assignmentTesters[i]}}
+        </div>
+        <div class="">
+          <select [(ngModel)]="selectedTester" (change)="testerSelect(assignment._id, assignment.language)">
+            <option *ngFor="let t of testers" [ngValue]="t" (change)="onTesterSelect(t._id)">
+              {{t.firstName}} {{t.lastName}}
+            </option>
+          </select>          
+        </div>
+
       </td>
 
     </tr>

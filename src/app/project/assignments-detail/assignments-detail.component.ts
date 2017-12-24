@@ -64,6 +64,8 @@ export class AssignmentsDetailComponent implements OnInit {
         this.assignments[i].tester = this.selectedTester._id;
         this.loadTesters();
         this.projectService.updateAssignment(this.project_Id, this.task_Id, lang, this.assignments[i]);
+        //so that it is clear for next choice
+        //this.selectedTester = new Tester();
         return true;
       }
     });

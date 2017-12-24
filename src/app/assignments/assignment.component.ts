@@ -5,7 +5,9 @@ import { TesterService } from '../tester/tester.service';
 
 @Component({
   template:`
-    <h2>Assignments</h2>
+    <div class="container">
+      <h2>Assignments</h2>
+    </div>
     <router-outlet></router-outlet>
   `,
   providers: [ProjectService,TesterService]

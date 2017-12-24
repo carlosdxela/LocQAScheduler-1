@@ -10,43 +10,33 @@
         </option>
       </select>
     </div >
-    <div>
-      <button (click)="resetView()">Reset Filter</button>
+    <div class="col-sm-2">
+      <button class="btn btn-primary" (click)="resetView()">Reset Filter</button>
     </div>
   </div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>
-          Project Name
-        </th>
-        <th>
-          Task Name
-        </th>
-        <th>
-          Language
-        </th>
-        <th>
-          Assigned To
-        </th>
-      </tr>
-    </thead>
-    <tbody *ngIf="flatAssignments">
-      <tr *ngFor="let assignment of filteredAssignments">
-        <th>
-          {{assignment.projectName}}
-        </th>
-        <th>
-          {{assignment.taskName}}
-        </th>
-        <th>
-          {{assignment.languageAssignment}}
-        </th>
-        <th>
-          {{assignment.testerName}}
-        </th>
-      </tr>
+  <div class="row">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-inverse">
+        <tr>
+          <th>Project Name</th>
+          <th>Task Name</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Language</th>
+          <th>Assigned To</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="flatAssignments">
+        <tr *ngFor="let assignment of filteredAssignments">
+          <td>{{assignment.projectName}}</td>
+          <td>{{assignment.taskName}}</td>
+          <td>{{assignment.startDate | date:'shortDate'}}</td>
+          <td>{{assignment.endDate | date: 'shortDate'}}</td>
+          <td>{{assignment.languageAssignment}}</td>
+          <td>{{assignment.testerName}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-    </tbody>
-  </table>
 </div>

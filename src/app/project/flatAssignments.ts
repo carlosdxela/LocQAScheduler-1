@@ -3,6 +3,8 @@ export class flatAssignment{
   projectName: string;
   taskId: number;
   taskName: string;
+  startDate:Date;
+  endDate:Date;
   languageAssignment: string;
   testerId: number;
   testerName: string;

@@ -1,36 +1,42 @@
-<div>
-  <button (click)="addNewProject()">
-    <span class="badge"> ADD NEW PROJECT </span>
-  </button>
-  <button (click)="refresh()">
-    <span class="badge"> REFRESH </span>
-  </button>
-</div>
-
-<accordion [closeOthers]=true>
-
-  <accordion-group #group *ngFor="let project of projects | async"
-  (click)="onSelect(project)" [class.selected]="project === selectedProject">
-    <div accordion-heading class="clearfix">
-      <div >
-        ID: <b>{{project._id}}</b>
-      </div>
-      <div >
-        <h3><small>Project Name:</small> {{project.projectName}}</h3>
-      </div>
-      <div >
-        Project Languages: {{project.languages}}
-      </div>
-      <div >
-        <button [routerLink]="['/projects', project._id]">
-          <span class="badge"> EDIT </span>
-        </button>
-        <button (click)="deleteProject(project._id)">
-          <span class="badge"> DELETE </span>
-        </button>
-      </div>
+<div class="container">
+  <div class="row">
+    <div class="btn-group">
+      <button class="btn btn-primary" (click)="addNewProject()">
+        ADD NEW PROJECT
+      </button>
+      <button class="btn btn-primary" (click)="refresh()">
+        REFRESH
+      </button>
     </div>
-    <app-task-list [tasks]="project.tasks"></app-task-list>
-  </accordion-group>
 
-</accordion>
+  </div>
+
+  <accordion [closeOthers]=true>
+
+    <accordion-group #group *ngFor="let project of projects | async"
+    (click)="onSelect(project)" [class.selected]="project === selectedProject">
+      <div accordion-heading class="clearfix">
+        <div >
+          ID: {{project._id}}
+        </div>
+        <div >
+          <h3><small>Project Name:</small> {{project.projectName}}</h3>
+        </div>
+        <div >
+          Project Languages: {{project.languages}}
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-primary" [routerLink]="['/projects', project._id]">
+            EDIT
+          </button>
+          <button class="btn btn-primary" (click)="deleteProject(project._id)">
+            DELETE
+          </button>
+        </div>
+      </div>
+      <app-task-list [tasks]="project.tasks"></app-task-list>
+    </accordion-group>
+
+  </accordion>
+
+</div>

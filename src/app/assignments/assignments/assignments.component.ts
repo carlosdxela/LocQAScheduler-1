@@ -72,6 +72,8 @@ export class AssignmentsComponent implements OnInit {
               flatA.projectName = project.projectName;
               flatA.taskId = task._id;
               flatA.taskName = task.taskName;
+              flatA.startDate = task.startDate;
+              flatA.endDate = task.finishDate;
               flatA.languageAssignment = task.assignments[k].language;
               flatA.testerId = task.assignments[k].tester;
               flatA.testerName = this.getTesterName(flatA.testerId);
