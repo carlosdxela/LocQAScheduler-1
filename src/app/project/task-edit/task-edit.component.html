@@ -1,34 +1,58 @@
 
-<div >
-  <table class="table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Task Name</th>
-      <th>Start Date</th>
-      <th>Finish Date</th>
-      <th>
-        <button (click)="addNewTask()"><span class="glyphicon glyphicon-plus"> </span> New Task</button>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr  *ngFor="let task of tasks">
-      <td>{{task.id}}</td>
-      <td><input type="text" name="taskName-{{index}}"[(ngModel)]="task.taskName" /></td>
-      <td>
-        <input type="date" name="startDate-{{index}}"
-        value="{{task.startDate}}" [(ngModel)]="task.startDate" />
-      </td>
-      <td>
-        <input type="date" name="startDate-{{index}}"
-        value="{{task.finishDate}}" [(ngModel)]="task.finishDate" />
-      </td>
-      <td>
-        <button (click)="deleteTask(task.id)"><span class="glyphicon glyphicon-remove"></span></button>
-      </td>
-    </tr>
-  </tbody>
-  </table>
+<div class="container">
+  <div class="row">
+    <button class="btn btn-primary" (click)="addNewTask()">
+      <span class="glyphicon glyphicon-plus"> </span> New Task
+    </button>
+  </div>
+  <div class="row">
+    <table class="table table-bordered">
+    <thead class="thead-inverse">
+      <tr>
+        <th>
+
+        </th>
+        <th>Task Name</th>
+        <th>Start Date</th>
+        <th>Finish Date</th>
+
+        <th>
+          Assignments
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let task of tasks">
+        <td>
+          <div class="btn-group-vertical">
+            <button class="btn btn-danger btn-sm" (click)="deleteTask(task._id)">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+            <button class="btn btn-success" (click)="saveTask(task._id, task)">
+              <span class="glyphicon glyphicon-ok"></span>
+            </button>
+          </div>
+
+        </td>
+        <td style="display:none">{{task._id}}</td>
+        <td><input type="text" name="taskName-{{index}}"[(ngModel)]="task.taskName" /></td>
+        <td>
+          <input type="date" name="startDate-{{index}}"
+          value="{{task.startDate " [ngModel]="task.startDate | date:'yyyy-MM-dd'" (ngModelChange)="task.startDate = $event" />
+        </td>
+        <td>
+          <input type="date" name="startDate-{{index}}"
+          value="{{task.finishDate}}" [ngModel]="task.finishDate | date:'yyyy-MM-dd'" (ngModelChange)="task.finishDate=$event" />
+        </td>
+        <td>
+          <app-assignments-detail [assignments]="task.assignments" [task_Id]="task._id" [project_Id]="project_Id"></app-assignments-detail>
+        </td>
+
+
+      </tr>
+    </tbody>
+    </table>
+  </div>
+
 
 </div>

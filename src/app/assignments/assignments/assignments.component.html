@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      Filter Assignments by Tester:
+    </div>
+    <div class="col-sm-3">
+      <select [(ngModel)]="selectedTester" (change)="testerSelect()">
+        <option *ngFor="let t of testers" [ngValue]="t" >
+          {{t.firstName}} {{t.lastName}}
+        </option>
+      </select>
+    </div >
+    <div class="col-sm-2">
+      <button class="btn btn-primary" (click)="resetView()">Reset Filter</button>
+    </div>
+  </div>
+  <div class="row">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-inverse">
+        <tr>
+          <th>Project Name</th>
+          <th>Task Name</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Language</th>
+          <th>Assigned To</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="flatAssignments">
+        <tr *ngFor="let assignment of filteredAssignments">
+          <td>{{assignment.projectName}}</td>
+          <td>{{assignment.taskName}}</td>
+          <td>{{assignment.startDate | date:'shortDate'}}</td>
+          <td>{{assignment.endDate | date: 'shortDate'}}</td>
+          <td>{{assignment.languageAssignment}}</td>
+          <td>{{assignment.testerName}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

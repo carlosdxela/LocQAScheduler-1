@@ -16,6 +16,7 @@ import { ProjectService } from '../project.service';
 export class ProjectDetailComponent implements OnInit {
 
   project$: Observable<Project>;
+  project: Project;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,12 +27,23 @@ export class ProjectDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.project$ = this.route.paramMap
+    //this.project$ =
+    this.refresh();
+  }
+
+  refresh(){
+    this.route.paramMap
       .switchMap((params: ParamMap) =>
-        this.service.getProjectbyId(params.get('projectId')));
+        this.service.getProjectbyId(params.get('projectId')))
+      .subscribe((project:Project)=>{
+        this.project = new Project(project);
+        //console.log(project);
+      });
   }
 
   gotoProjects(){
+    console.log("Leaving project " + JSON.stringify(this.project));
+    this.service.updateProject(this.project._id.toString(), this.project);
     this.router.navigate(['/projects']);
   }
 

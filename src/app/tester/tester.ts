@@ -1,5 +1,5 @@
 export class Tester {
-  id: number;
+  _id: number;
   firstName: string = '';
   lastName: string = '';
   alias: string = '';

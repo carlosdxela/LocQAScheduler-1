@@ -1,7 +1,7 @@
 import { Assignment } from './assignment';
 
 export class Task{
-  id: number;
+  _id: number;
   taskName: string = '';
   startDate: Date;
   finishDate: Date;

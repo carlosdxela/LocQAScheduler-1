@@ -8,5 +8,5 @@ import { TesterService } from './tester/tester.service';
   providers: [TesterService]
 })
 export class AppComponent {
-  title = 'app';
+  title = 'Loc QA Scheduler';
 }

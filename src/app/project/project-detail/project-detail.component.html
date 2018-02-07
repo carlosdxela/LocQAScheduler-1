@@ -1,34 +1,43 @@
 
-<form #projectForm="ngForm">
-  <div class="container" *ngIf="project$ | async as project">
-    <h3>{{ project.projectName }}</h3>
-    <div class="form-group">
-      <label class="control-label">ID: {{project.id}}
-      </label>
-    </div>
-    <div class="form-group">
-      <label class="control-label">Project Name:</label>
-      <div >
-        <input class="form-control" [(ngModel)]="project.projectName" name="projectName"
-        placeholder="project name"/>
+<div class="container">
+  <div class="row">
+    <div class="btn-group">
+      <button class="btn btn-primary" (click)="gotoProjects()">Save and Return</button>
+      <button class="btn btn-primary" (click)="refresh()"> Refresh</button>
+    </div>    
+  </div>
+
+  <form #projectForm="ngForm">
+
+
+    <div class="container" *ngIf="project">
+      <h3>{{ project.projectName }}</h3>
+      <div class="form-group">
+        <label class="control-label">ID: {{project._id}}
+        </label>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Project Name:</label>
+        <div >
+          <input class="form-control" [(ngModel)]="project.projectName" name="projectName"
+          placeholder="project name"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class=" control-label">Languages:</label>
+        <div >
+          <input class="form-control" [(ngModel)]="project.languages" name="langauges" placeholder="language"/>
+        </div>
+      </div>
+
+      <div>
+          <h4>Task List</h4>
+        <app-task-edit [tasks]="project.tasks" [project_Id]="project._id"></app-task-edit>
       </div>
     </div>
 
-    <div class="form-group">
-      <label class=" control-label">Languages:</label>
-      <div >
-        <input class="form-control" [(ngModel)]="project.languages" name="langauges" placeholder="language"/>
-      </div>
-    </div>
 
-    <div>
-        <h4>Task List</h4>
-      <app-task-edit [tasks]="project.tasks" [project_Id]="project.id"></app-task-edit>
-    </div>
-  </div>
+  </form>
 
-
-  <div>
-    <button class="btn btn-primary" (click)="gotoProjects()">Save and Return</button>
-  </div>
-</form>
+</div>

@@ -1,37 +1,41 @@
-<div>
-  <button (click)="addNewTester()">
-    <span class="badge"> ADD NEW TESTER </span>
-  </button>
-  <button (click)="refresh()">
-    <span class="badge"> REFRESH</span>
-  </button>
-</div>
-
-<ul class="testers" >
-  <li *ngFor="let tester of testers | async"
-  (click)="onSelect(tester)"
-  [class.selected]="tester === selectedTester">
-
-    <div >
-      ID: <b>{{tester.id}}</b>
-    </div>
-    <div >
-      <h3><small>Tester Name:</small> {{tester.firstName}} {{tester.lastName}}</h3>
-    </div>
-    <div >
-      Tester Languages: {{tester.languages}}
-    </div>
-    <div >
-      <a [routerLink]="['/testers', tester.id]">
-        <span class="badge"> EDIT </span>
-      </a>
-      <button (click)="deleteTester(tester.id)">
-        <span class="badge"> DELETE </span>
+<div class="container">
+  <div class="row">
+    <div class="btn group">
+      <button class="btn btn-primary" (click)="addNewTester()">
+        Add New Tester
       </button>
     </div>
-  </li>
-</ul>
+      <button class="btn btn-primary" (click)="refreshTester()">
+        Refresh
+      </button>
+  </div>
+  <div class="row">
+    <ul class="list-group" >
+      <li class="list-group-item" *ngFor="let tester of testers"
+      (click)="onSelect(tester)"
+      [class.selected]="tester === selectedTester">
+        <div >
+          <div >
+            <h3><small>Tester Name:</small> {{tester.firstName}} {{tester.lastName}}</h3>
+          </div>
+          <div >
+            Tester Languages: {{tester.languages}}
+          </div>
+        </div>
 
-<div>
-  _____
+        <div >
+          <div class="btn-group" role="group">
+            <button class="btn btn-primary btn-sm" [routerLink]="['/testers', tester._id]">
+               EDIT
+            </button>
+            <button class="btn btn-primary btn-sm" (click)="deleteTester(tester._id)">
+               DELETE
+            </button>
+          </div>
+
+        </div>
+      </li>
+    </ul>
+  </div>
+
 </div>

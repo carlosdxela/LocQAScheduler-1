@@ -1,0 +1,30 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Language</th>
+      <th>Tester</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr  *ngFor="let assignment of assignments; let i = index">
+      <td>
+        {{assignment.language}}
+      </td>
+      <td>
+        <div class="">
+          {{assignmentTesters[i]}}
+        </div>
+        <div class="">
+          <select [(ngModel)]="selectedTester" (change)="testerSelect(assignment._id, assignment.language)">
+            <option *ngFor="let t of testers" [ngValue]="t" (change)="onTesterSelect(t._id)">
+              {{t.firstName}} {{t.lastName}}
+            </option>
+          </select>          
+        </div>
+
+      </td>
+
+    </tr>
+  </tbody>
+</table>
