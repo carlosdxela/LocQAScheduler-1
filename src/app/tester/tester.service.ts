@@ -41,6 +41,7 @@ export class TesterService implements OnInit{
   }
 
   ngOnInit():void{
+    console.log("API_URL " + API_URL);
 //    this.http.get(API_URL+'/testers').subscribe(data=>{
 //      this.testers = data['testers'];
 //    });
